@@ -19,11 +19,12 @@ type SelectProps = {
   placeholder?: string;
   onChange?: (selected: OptionType) => void;
   onClose?: () => void;
+  status?: string;
   title?: string;
 };
 
 export const Select = (props: SelectProps): React.JSX.Element => {
-  const { options, placeholder, selected, onChange, onClose, title } = props;
+  const { options, placeholder, selected, onChange, onClose, status, title } = props;
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const placeholderRef = useRef<HTMLDivElement>(null);
@@ -70,6 +71,7 @@ export const Select = (props: SelectProps): React.JSX.Element => {
             styles.placeholder,
             (styles as Record<string, string>)[optionClassName]
           )}
+          data-status={status}
           data-selected={!!selected?.value}
           onClick={handlePlaceHolderClick}
           role="button"

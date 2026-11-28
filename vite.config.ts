@@ -1,9 +1,12 @@
+import { fileURLToPath, URL } from 'node:url';
+
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 import { checker } from 'vite-plugin-checker';
 import readableClassnames from 'vite-plugin-readable-classnames';
 import sassDts from 'vite-plugin-sass-dts';
-import tsconfigPaths from 'vite-tsconfig-paths';
+
+const sourceDirectory = fileURLToPath(new URL('./src', import.meta.url));
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -17,9 +20,15 @@ export default defineConfig({
       enabledMode: ['development'],
       esmExport: true,
     }),
-    tsconfigPaths(),
   ],
   base: '',
+  resolve: {
+    alias: {
+      '@': sourceDirectory,
+      '@components': fileURLToPath(new URL('./src/components', import.meta.url)),
+      src: sourceDirectory,
+    },
+  },
   css: {
     preprocessorOptions: {
       scss: {
